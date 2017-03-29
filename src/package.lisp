@@ -5,7 +5,7 @@
 
 (in-package :cl-user)
 (defpackage spa-five
-  (:use :cl :alexandria :iterate))
+  (:use :cl :alexandria :iterate :server :hunchentoot))
 (in-package :spa-five)
 
 ;; blah blah blah.

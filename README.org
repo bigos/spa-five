@@ -1,4 +1,3 @@
-
 * Spa-Five  - single-page app experiment
 
 ** Usage
@@ -20,7 +19,12 @@ Also, it depends on the following libraries:
 
 
 ** Installation
+clone the repo
 
+(push #p"~/Programming/Lisp/spa-five/" asdf:*central-registry*)
+(ql:quickload :spa-five)
+
+visit localhost:5000/foo
 
 ** Author
 
@@ -34,6 +38,3 @@ Copyright (c) 2017 Jacek Podkanski (ruby.object@googlemail.com)
 * License
 
 Licensed under the LLGPL License.
-
-
-

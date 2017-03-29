@@ -22,9 +22,19 @@
   :author "Jacek Podkanski"
   :mailto "ruby.object@googlemail.com"
   :license "LLGPL"
-  :depends-on (:alexandria :iterate)
+  :depends-on (:alexandria
+               :iterate
+               :hunchentoot
+               :parenscript
+               :cl-who)
   :components ((:module "src"
                 :components
-                ((:file "package"))))
+                ((:module "lib"
+                          :components
+                          ((:file "server")))
+                 (:file "package")
+                 (:file "handlers")
+                 (:file "routes")
+                 )))
   :description "single-page app experiment"
   :in-order-to ((test-op (test-op :spa-five.test))))

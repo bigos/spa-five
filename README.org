@@ -1,0 +1,39 @@
+
+* Spa-Five  - single-page app experiment
+
+** Usage
+
+** Dependencies
+
+This library is at least tested on implementation listed below:
+
++ SBCL 1.3.16 on X86-64 Linux  4.8.0-41-generic (author's environment)
+
+Also, it depends on the following libraries:
+
++ alexandria by Nikodemus Siivola <nikodemus@sb-studio.net>, and others. ::
+    Alexandria is a collection of portable public domain utilities.
+
++ iterate by  ::
+    Jonathan Amsterdam's iterator/gatherer/accumulator facility
+
+
+
+** Installation
+
+
+** Author
+
++ Jacek Podkanski (ruby.object@googlemail.com)
+
+* Copyright
+
+Copyright (c) 2017 Jacek Podkanski (ruby.object@googlemail.com)
+
+
+* License
+
+Licensed under the LLGPL License.
+
+
+

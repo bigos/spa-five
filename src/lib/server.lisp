@@ -31,8 +31,16 @@
   (:default-initargs                   ; default-initargs must be used
    :address "127.0.0.1"))              ; because ACCEPTOR uses it
 
+
+;; (pathname-directory
+;;  (parse-namestring *load-pathname*))
+(defparameter *file-root* (cl-fad:merge-pathnames-as-directory
+                           "~/Programming/Lisp/spa-five/assets/"))
+
 ;;; Instantiate VHOST
-(defvar vhost1 (make-instance 'vhost :port 5000))
+(defvar vhost1 (make-instance 'vhost
+                              :port 5000
+                              :document-root *file-root*))
 
 ;;; ----------------------------------------------------------------------------
 ;;; helpers for extracting parameters from url
@@ -79,10 +87,15 @@ regex parts."
 (defmethod acceptor-dispatch-request ((vhost vhost) request)
   ;; try REQUEST on each dispatcher in turn
   (mapc (lambda (dispatcher) ; as defined in the function create-custom-dispatcher
-          (let ((handler-cons (funcall dispatcher request)))
-            (when (car handler-cons) ; Handler found. FUNCALL it and return result
-              (return-from acceptor-dispatch-request (apply (car handler-cons)
-                                                            (cdr handler-cons))))))
+          (let ((handler-obj (funcall dispatcher request) ))
+            (if (consp handler-obj)
+                (let ((handler-cons handler-obj)) ; version with arguments
+                  (when (car handler-cons) ; Handler found. FUNCALL it and return result
+                    (return-from acceptor-dispatch-request (apply (car handler-cons)
+                                                                  (cdr handler-cons)))))
+                (let ((handler handler-obj)) ; version without arguments
+                  (when handler ; Handler found.
+                    (return-from acceptor-dispatch-request (funcall handler)))))))
         (dispatch-table vhost))
   (call-next-method))
 

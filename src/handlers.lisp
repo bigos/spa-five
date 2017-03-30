@@ -6,12 +6,12 @@
 (in-package :handlers)
 
 ;;; Define handlers
-(defun foo1 (&rest args) "Hello everyone, this is spa-five")
+(defun foo1 (args) "Hello everyone, this is spa-five")
 
-(defun bar  (&rest args)
+(defun bar  (args)
   (format nil "Weeeeeeeeeee yay!!! ~A" args))
 
-(defun baz  (&rest args)
+(defun baz  (args)
   ;; this is the way of invoking a debugger
   ;; (cerror "debugging session" "tried ~a" args)
   (format nil "Baz ~a ~a <br>get parameters ~a"
@@ -25,7 +25,7 @@
                 (parse-namestring server::*file-root*))))
     (hunchentoot:handle-static-file asset)))
 
-(defun parenscripts (&rest args)
+(defun parenscripts (args)
   "parenscripts will go here")
 
 (defun home ()

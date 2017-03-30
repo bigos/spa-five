@@ -91,9 +91,9 @@ regex parts."
                 (let ((handler-cons handler-obj)) ; version with script-name arguments
                   (when (car handler-cons) ; Handler found. APPLY it and return result
                     (return-from acceptor-dispatch-request (apply (car handler-cons)
-                                                                  (cdr handler-cons)))))
+                                                                  (list (cdr handler-cons))))))
                 (let ((handler handler-obj)) ; version without arguments
-                  (when handler ; Handler found.
+                  (when handler              ; Handler found.
                     (return-from acceptor-dispatch-request (funcall handler)))))))
         (dispatch-table vhost))
   (call-next-method))
@@ -115,12 +115,12 @@ current request matches the CL-PPCRE regular expression based on REGEX-BUILDER."
 ;;; the lambda from above becomes the route below
 
 ;;; Populate the dispatch table
-(defun add-routes (route-function-list)
+(defun add-routes (routes)
   ;; clear previously defined routes so we do not have to restart the server
   (setf (dispatch-table vhost1) '())
-  ;; add route functions
-  (loop for route in route-function-list
-     do (push route (dispatch-table vhost1))))
+  ;; add route lambdas
+  (loop for route-lambda in routes
+     do (push route-lambda (dispatch-table vhost1))))
 
 ;;; Start VHOST
 (defun restart-acceptor ()

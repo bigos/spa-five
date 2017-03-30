@@ -1,3 +1,5 @@
+(declaim (optimize (debug 3)))
+
 (defpackage :handlers
   (:use :cl :hunchentoot :cl-who))
 
@@ -16,11 +18,13 @@
           (get-parameters *request*)))
 
 (defun assets ()
-  (let ((asset (cl-fad:merge-pathnames-as-file
-                     server::*file-root*
-                     (script-name *request*))))
+  (let* ((doc-root (parse-namestring
+                    "~/Programming/Lisp/spa-five/assets/"))
+         (asset (merge-pathnames
+                 (subseq (script-name *request*) 1)
+                 doc-root)))
     ;; problem with path creation
-    (cerror "debugging request" "request ~a  ~a" *request* asset )
+    (cerror "debugging request" "request ~a  ~a" (script-name *request*) asset )
     (hunchentoot:handle-static-file asset)))
 
 (defun parenscripts (&rest args)

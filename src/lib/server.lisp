@@ -32,8 +32,6 @@
    :address "127.0.0.1"))              ; because ACCEPTOR uses it
 
 
-;; (pathname-directory
-;;  (parse-namestring *load-pathname*))
 (defparameter *file-root* (cl-fad:merge-pathnames-as-directory
                            "~/Programming/Lisp/spa-five/assets/"))
 
@@ -88,9 +86,10 @@ regex parts."
   ;; try REQUEST on each dispatcher in turn
   (mapc (lambda (dispatcher) ; as defined in the function create-custom-dispatcher
           (let ((handler-obj (funcall dispatcher request) ))
+            ;; (cerror "debugging request" "request ~a ~A ~A" (script-name request)  handler-obj dispatcher)
             (if (consp handler-obj)
-                (let ((handler-cons handler-obj)) ; version with arguments
-                  (when (car handler-cons) ; Handler found. FUNCALL it and return result
+                (let ((handler-cons handler-obj)) ; version with script-name arguments
+                  (when (car handler-cons) ; Handler found. APPLY it and return result
                     (return-from acceptor-dispatch-request (apply (car handler-cons)
                                                                   (cdr handler-cons)))))
                 (let ((handler handler-obj)) ; version without arguments

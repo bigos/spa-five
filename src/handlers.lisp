@@ -7,8 +7,10 @@
 
 ;;; Define handlers
 (defun foo1 (&rest args) "Hello everyone, this is spa-five")
+
 (defun bar  (&rest args)
   (format nil "Weeeeeeeeeee yay!!! ~A" args))
+
 (defun baz  (&rest args)
   ;; this is the way of invoking a debugger
   ;; (cerror "debugging session" "tried ~a" args)
@@ -18,19 +20,15 @@
           (get-parameters *request*)))
 
 (defun assets ()
-  (let* ((doc-root (parse-namestring
-                    "~/Programming/Lisp/spa-five/assets/"))
-         (asset (merge-pathnames
-                 (subseq (script-name *request*) 1)
-                 doc-root)))
-    ;; problem with path creation
-    (cerror "debugging request" "request ~a  ~a" (script-name *request*) asset )
+  (let ((asset (merge-pathnames
+                (subseq (script-name *request*) 1)
+                (parse-namestring server::*file-root*))))
     (hunchentoot:handle-static-file asset)))
 
 (defun parenscripts (&rest args)
   "parenscripts will go here")
 
-(defun home (&rest args)
+(defun home ()
   (with-html-output-to-string (*standard-output* nil :indent T)
     (:html
      (:head
@@ -41,4 +39,4 @@
       )
      (:body
       (:h1 "The Page")
-      (:p "this is content of" (fmt "~A" (script-name *request*)) )))))
+      (:p "this is content of " (fmt "~A" (script-name *request*)) )))))

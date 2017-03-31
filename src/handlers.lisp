@@ -28,15 +28,33 @@
 (defun parenscripts (args)
   "parenscripts will go here")
 
-(defun home ()
+(defun layout (view)
   (with-html-output-to-string (*standard-output* nil :indent T)
     (:html
      (:head
-      (:title "SPA five")
+      (:title "Spa five")
       (:link :href "/stylesheets/style.css" :media "all" :rel "stylesheet" :type "text/css")
       ;; (:script :src "/javascripts/jquery-3.1.1.min.js")
       ;; (:script :src "/javascripts/javascript.js")
       )
      (:body
-      (:h1 "The Page")
-      (:p "this is content of " (fmt "~A" (script-name *request*)) )))))
+      (fmt "~a" view)
+      (:footer (multiple-value-bind
+                     (s m h date month year wkd dst zone)
+                   (get-decoded-time)
+                 (fmt "time now ~2,'0d:~2,'0d current date ~2,'0d/~2,'0d/~d"
+                      h m date month year) ))))))
+
+(defun home ()
+  (layout
+   (with-html-output-to-string (*standard-output* nil :indent T)
+     (:h1 "Home")
+     (:p "this is content of " (fmt "~A" (script-name *request*)) )
+     (:a :href "/about" "About"))))
+
+(defun about ()
+  (layout
+   (with-html-output-to-string (*standard-output* nil :indent T)
+     (:h1 "About")
+     (:p "this is content of " (fmt "~A" (script-name *request*)) )
+     (:a :href "/" "Home"))))

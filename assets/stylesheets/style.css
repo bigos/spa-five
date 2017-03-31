@@ -1,1 +1,12 @@
-body {background: #aaffaa;}
+body {background: #f4fff4;}
+
+footer {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 3px;
+  background: #69b544;
+  margin-top: 2em;
+  padding: 0.5em;
+  text-align: center;
+  border-radius:15px;
+}

@@ -13,6 +13,8 @@
   (server:create-custom-dispatcher :get "/contact/:action/:id" 'handlers::baz)
   (server:create-custom-dispatcher :get "/baz/:subj/has/:obj"  'handlers::baz)
   (server:create-custom-dispatcher :get "/bar"                 'handlers::bar)
+  ;; regex routes
+  (hunchentoot:create-regex-dispatcher "\\A/about\\z" 'handlers::about)
   ;; finally route to home page making sure the regex is terminated with \z
   (hunchentoot:create-regex-dispatcher "\\A/\\z" 'handlers::home)))
 

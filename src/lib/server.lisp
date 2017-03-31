@@ -118,8 +118,8 @@ current request matches the CL-PPCRE regular expression based on REGEX-BUILDER."
 (defun add-routes (routes)
   ;; clear previously defined routes so we do not have to restart the server
   (setf (dispatch-table vhost1) '())
-  ;; add route lambdas
-  (loop for route-lambda in routes
+  ;; add route lambdas reversing them first so top routes are dispatched first
+  (loop for route-lambda in (reverse routes)
      do (push route-lambda (dispatch-table vhost1))))
 
 ;;; Start VHOST

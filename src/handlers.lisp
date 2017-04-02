@@ -23,10 +23,12 @@
   (let ((asset (merge-pathnames
                 (subseq (script-name *request*) 1)
                 (parse-namestring server::*file-root*))))
+    ;;(cerror "debugging session" "tried ~a" asset)
     (hunchentoot:handle-static-file asset)))
 
 (defun parenscripts (args)
-  "parenscripts will go here")
+  (setf (hunchentoot:content-type*) "text/plain")
+  (parenscripts-js))
 
 (defun layout (view)
   (with-html-output-to-string (*standard-output* nil :indent T)
@@ -34,8 +36,9 @@
      (:head
       (:title "Spa five")
       (:link :href "/stylesheets/style.css" :media "all" :rel "stylesheet" :type "text/css")
-      ;; (:script :src "/javascripts/jquery-3.1.1.min.js")
-      ;; (:script :src "/javascripts/javascript.js")
+      (:script :src "/javascripts/jquery-3.2.0.js")
+      (:script :src "/javascripts/javascript.js")
+      (:script :src "/parenscripts/experiment.js")
       )
      (:body
       (fmt "~a" view)
@@ -48,13 +51,13 @@
 (defun home ()
   (layout
    (with-html-output-to-string (*standard-output* nil :indent T)
-     (:h1 "Home")
+     (:h1 :onclick (parenscript:ps (greeting-callback)) "Home")
      (:p "this is content of " (fmt "~A" (script-name *request*)) )
      (:a :href "/about" "About"))))
 
 (defun about ()
   (layout
    (with-html-output-to-string (*standard-output* nil :indent T)
-     (:h1 "About")
+     (:h1 :onclick (parenscript:ps (hiding-callback)) "About")
      (:p "this is content of " (fmt "~A" (script-name *request*)) )
      (:a :href "/" "Home"))))

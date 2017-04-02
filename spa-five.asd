@@ -34,6 +34,7 @@
                           ((:file "server")))
                  (:file "package")
                  (:file "handlers")
+                 (:file "parenscripts")
                  (:file "routes")
                  )))
   :description "single-page app experiment"

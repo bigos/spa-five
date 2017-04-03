@@ -27,7 +27,7 @@
     (hunchentoot:handle-static-file asset)))
 
 (defun parenscripts (args)
-  (setf (hunchentoot:content-type*) "text/plain")
+  (setf (hunchentoot:content-type*) "text/javascript")
   (parenscripts-js))
 
 (defun layout (view)
@@ -38,7 +38,7 @@
       (:link :href "/stylesheets/style.css" :media "all" :rel "stylesheet" :type "text/css")
       (:script :src "/javascripts/jquery-3.2.0.js")
       (:script :src "/javascripts/javascript.js")
-      (:script :src "/parenscripts/experiment.js")
+      (:script :src "/parenscripts/first-parenscript.js")
       )
      (:body
       (fmt "~a" view)

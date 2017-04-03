@@ -1,7 +1,7 @@
 (declaim (optimize (debug 3)))
 
 (defpackage :handlers
-  (:use :cl :hunchentoot :cl-who))
+  (:use :cl :hunchentoot :cl-who :parenscript))
 
 (in-package :handlers)
 
@@ -51,13 +51,13 @@
 (defun home ()
   (layout
    (with-html-output-to-string (*standard-output* nil :indent T)
-     (:h1 :onclick (parenscript:ps (greeting-callback)) "Home")
+     (:h1 :onclick (ps (greeting-callback)) "Home")
      (:p "this is content of " (fmt "~A" (script-name *request*)) )
      (:a :href "/about" "About"))))
 
 (defun about ()
   (layout
    (with-html-output-to-string (*standard-output* nil :indent T)
-     (:h1 :onclick (parenscript:ps (hiding-callback)) "About")
+     (:h1 :onclick (ps (hiding-callback)) "About")
      (:p "this is content of " (fmt "~A" (script-name *request*)) )
      (:a :href "/" "Home"))))

@@ -1,11 +1,11 @@
 (in-package :handlers)
 
 (defun parenscripts-js ()
-  (parenscript:ps
-    (defun greeting-callback ()
-      (alert "Hello World and everyone else"))
+  (ps
+   (defun greeting-callback ()
+     (alert "Hello World and everyone else"))
 
-    (defun hiding-callback ()
-      (parenscript:chain ($ "footer") (toggle)))
+   (defun hiding-callback ()
+     (parenscript:chain ($ "footer") (toggle)))
 
-    ))
+   ))                                   ; end of parenscript:ps

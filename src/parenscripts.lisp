@@ -1,5 +1,9 @@
 (in-package :handlers)
 
+(defpsmacro with-instance (operator list)
+  `(,(car list)
+     ,@(mapcar (lambda (arg) `(@ ,operator ,arg)) (cdr list))))
+
 (defun parenscripts-js ()
   (ps
     (defun greeting-callback ()
@@ -18,8 +22,6 @@
                            str3 "amet"
                            request (lambda (preference)
                                      (+ preference ".Secret word: "
-                                        (+ (@ this str2)
-                                           (@ this str3)
-                                           (@ this str1)))))))
+                                        (with-instance this (+ str2 str3 str1)))))))
 
-  ))                                    ; end of parenscript:ps
+    ))                                  ; end of parenscript:ps

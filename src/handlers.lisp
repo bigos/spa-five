@@ -70,4 +70,8 @@
       (:title "SPA")
       (:script :src "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"))
      (:body
-      (:div :data-ng-app "")))))
+      (:div :data-ng-app ""
+            (:p (fmt "My first expression: {{ ~a }}" (ps (+ 5 5))))
+            (:p "Name: " (:input :type "text" :data-ng-model "name"))
+            (:p "Entered name was: {{ name }}")
+            )))))

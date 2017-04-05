@@ -70,8 +70,15 @@
       (:title "SPA")
       (:script :src "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"))
      (:body
-      (:div :data-ng-app ""
-            (:p (fmt "My first expression: {{ ~a }}" (ps (+ 5 5))))
-            (:p "Name: " (:input :type "text" :data-ng-model "name"))
-            (:p "Entered name was: {{ name }}")
-            )))))
+      (:div :data-ng-app "myApp" :data-ng-controller "myCtrl"
+            "First Name:" (:input :type "text" :data-ng-model "firstName") (:br)
+            "Last Name:"  (:input :type "text" :data-ng-model "lastName") (:br)
+            (:br)
+            (fmt "Full Name: {{ ~a }}" (ps (+ first-name " " last-name))))
+      (:script
+       (ps
+         (var app (chain angular (module "myApp" (array))))
+         (setf (@ $scope ))
+         )
+       )
+      ))))

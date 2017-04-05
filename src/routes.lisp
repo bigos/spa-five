@@ -7,6 +7,7 @@
   (hunchentoot:create-prefix-dispatcher "/javascripts/"  'handlers::assets)
   (hunchentoot:create-prefix-dispatcher "/stylesheets/"  'handlers::assets)
   (hunchentoot:create-prefix-dispatcher "/img/"          'handlers::assets)
+  (hunchentoot:create-prefix-dispatcher "/spa"           'handlers::spa)
   ;; routes where we might need arguments passed by script-name
   (server:create-custom-dispatcher :get "/parenscripts/:file"  'handlers::parenscripts)
   (server:create-custom-dispatcher :all "/foo"                 'handlers::foo1)

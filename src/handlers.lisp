@@ -61,3 +61,13 @@
      (:h1 :onclick (ps (hiding-callback)) "About")
      (:p "this is content of " (fmt "~A" (script-name *request*)) )
      (:a :href "/" "Home"))))
+
+(defun spa ()
+  (setf (html-mode) :HTML5)
+  (with-html-output-to-string (*standard-output* nil :indent T :prologue T)
+    (:html
+     (:head
+      (:title "SPA")
+      (:script :src "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"))
+     (:body
+      (:div :data-ng-app "")))))
